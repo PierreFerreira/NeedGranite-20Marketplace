@@ -1,0 +1,848 @@
+﻿{
+	"toJSON": true,
+	"extraProperties": {
+		"version": "2",
+		"classes": {
+			"Region": {
+				"panelColor": "#996699",
+				"panel": {
+					"isOpen": "false",
+					"pathVisible": true,
+					"position": {
+						"X": 156,
+						"Y": 5
+					}
+				}
+			},
+			"Offcut": {
+				"panelColor": "#8DB3E2",
+				"panel": {
+					"isOpen": "false",
+					"pathVisible": true,
+					"position": {
+						"X": 469,
+						"Y": 36
+					}
+				}
+			},
+			"Person": {
+				"panelColor": "#BFBFBF",
+				"panel": {
+					"isOpen": "true",
+					"pathVisible": true,
+					"position": {
+						"X": 63,
+						"Y": 25
+					}
+				}
+			},
+			"OffcutsOwner": {
+				"panelColor": "#76923C",
+				"panel": {
+					"isOpen": "false",
+					"pathVisible": true,
+					"position": {
+						"X": 30,
+						"Y": 33
+					}
+				}
+			},
+			"OffcutsViewer": {
+				"panelColor": "#996699",
+				"panel": {
+					"isOpen": "false",
+					"pathVisible": true,
+					"position": {
+						"X": 49,
+						"Y": 21
+					}
+				}
+			},
+			"Material": {
+				"panelColor": "#B2A2C7",
+				"panel": {
+					"isOpen": "false",
+					"pathVisible": true,
+					"position": {
+						"X": 99,
+						"Y": 332
+					}
+				}
+			},
+			"MaterialCategory": {
+				"panelColor": "#996699",
+				"panel": {
+					"isOpen": "false",
+					"pathVisible": true,
+					"position": {
+						"X": 25,
+						"Y": 20
+					}
+				}
+			},
+			"Province": {
+				"panelColor": "#CCC1D9",
+				"panel": {
+					"isOpen": "false",
+					"pathVisible": true,
+					"position": {
+						"X": 31,
+						"Y": 338
+					}
+				}
+			},
+			"StarEventType": {
+				"panelColor": "#B7DDE8",
+				"panel": {
+					"isOpen": "true",
+					"pathVisible": true,
+					"position": {
+						"X": 515,
+						"Y": 329
+					}
+				}
+			},
+			"StarsUsedLogEntry": {
+				"panelColor": "#E5B9B7",
+				"panel": {
+					"isOpen": "true",
+					"pathVisible": true,
+					"position": {
+						"X": 480,
+						"Y": 23
+					}
+				}
+			},
+			"StarsPurchaseLogEntry": {
+				"panelColor": "#C4BD97",
+				"panel": {
+					"isOpen": "true",
+					"pathVisible": true,
+					"position": {
+						"X": 152,
+						"Y": 550
+					}
+				}
+			},
+			"OffcutViewedLogEntry": {
+				"panelColor": "#D7E3BC",
+				"panel": {
+					"isOpen": "false",
+					"pathVisible": true,
+					"position": {
+						"X": 476,
+						"Y": 469
+					}
+				}
+			},
+			"SearchGroup": {
+				"panelColor": "#76923C",
+				"panel": {
+					"isOpen": "false",
+					"position": {
+						"X": 552,
+						"Y": 580
+					},
+					"pathVisible": true
+				}
+			}
+		},
+		"model": {
+			"scriptMode": "manual",
+			"workspaceLeft": 0,
+			"workspaceTop": 0,
+			"relationCurve": {
+				"run": true,
+				"mode": 1
+			},
+			"lastScriptLocation": {
+				"Person": {
+					"computed": "Person/Person-events.js"
+				},
+				"Province": {
+					"computed": "Province/Province-events.js"
+				}
+			}
+		}
+	},
+	"dataClasses": [
+		{
+			"name": "Material",
+			"className": "Material",
+			"collectionName": "Materials",
+			"scope": "public",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"autosequence": true,
+					"type": "long",
+					"primKey": true
+				},
+				{
+					"name": "materialName",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"not_null": true,
+					"type": "string"
+				},
+				{
+					"name": "dateAdded",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "date",
+					"simpleDate": false
+				},
+				{
+					"name": "offcuts",
+					"kind": "relatedEntities",
+					"scope": "public",
+					"type": "Offcuts",
+					"reversePath": true,
+					"path": "material"
+				},
+				{
+					"name": "materialCategory",
+					"kind": "relatedEntity",
+					"scope": "public",
+					"type": "MaterialCategory",
+					"path": "MaterialCategory"
+				}
+			]
+		},
+		{
+			"name": "MaterialCategory",
+			"className": "MaterialCategory",
+			"collectionName": "MaterialCategories",
+			"scope": "public",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"autosequence": true,
+					"type": "long",
+					"primKey": true
+				},
+				{
+					"name": "materialCategoryName",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"not_null": true,
+					"type": "string"
+				},
+				{
+					"name": "dateAdded",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "date",
+					"simpleDate": false
+				},
+				{
+					"name": "materials",
+					"kind": "relatedEntities",
+					"scope": "public",
+					"type": "Materials",
+					"reversePath": true,
+					"path": "materialCategory"
+				}
+			]
+		},
+		{
+			"name": "Offcut",
+			"className": "Offcut",
+			"collectionName": "Offcuts",
+			"scope": "public",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"autosequence": true,
+					"type": "long",
+					"primKey": true
+				},
+				{
+					"name": "thickness",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "number"
+				},
+				{
+					"name": "offcutLength",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "number"
+				},
+				{
+					"name": "offcutWidth",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "number"
+				},
+				{
+					"name": "dateAdded",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "date",
+					"simpleDate": false
+				},
+				{
+					"name": "ownedBy",
+					"kind": "relatedEntity",
+					"scope": "public",
+					"type": "OffcutsOwner",
+					"path": "OffcutsOwner"
+				},
+				{
+					"name": "offcutViewedLogEntries",
+					"kind": "relatedEntities",
+					"scope": "public",
+					"type": "OffcutViewedLogsEntries",
+					"reversePath": true,
+					"path": "offcutViewed"
+				},
+				{
+					"name": "material",
+					"kind": "relatedEntity",
+					"scope": "public",
+					"type": "Material",
+					"path": "Material"
+				},
+				{
+					"name": "isAvailable",
+					"kind": "storage",
+					"scope": "public",
+					"type": "bool",
+					"not_null": true
+				}
+			]
+		},
+		{
+			"name": "OffcutViewedLog",
+			"className": "OffcutViewedLogEntry",
+			"collectionName": "OffcutViewedLogsEntries",
+			"scope": "public",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"autosequence": true,
+					"type": "long",
+					"primKey": true
+				},
+				{
+					"name": "dateAdded",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "date",
+					"simpleDate": false
+				},
+				{
+					"name": "viewedBy",
+					"kind": "relatedEntity",
+					"scope": "public",
+					"type": "OffcutsViewer",
+					"path": "OffcutsViewer"
+				},
+				{
+					"name": "offcutViewed",
+					"kind": "relatedEntity",
+					"scope": "public",
+					"type": "Offcut",
+					"path": "Offcut"
+				}
+			]
+		},
+		{
+			"name": "Person",
+			"className": "Person",
+			"collectionName": "People",
+			"scope": "public",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"autosequence": true,
+					"type": "long",
+					"primKey": true
+				},
+				{
+					"name": "firstName",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "string"
+				},
+				{
+					"name": "lastName",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "string"
+				},
+				{
+					"name": "fullName",
+					"kind": "calculated",
+					"scope": "public",
+					"type": "string",
+					"scriptKind": "javascript",
+					"onGet": [
+						{
+							"from": "model.Person.fullName.onGet",
+							"userDefined": true
+						}
+					]
+				},
+				{
+					"name": "companyName",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "string"
+				},
+				{
+					"name": "region",
+					"kind": "relatedEntity",
+					"scope": "public",
+					"type": "Region",
+					"path": "Region"
+				},
+				{
+					"name": "cellNo",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "number"
+				},
+				{
+					"name": "telNo",
+					"kind": "storage",
+					"scope": "public",
+					"type": "number"
+				},
+				{
+					"name": "emailAddr",
+					"kind": "storage",
+					"scope": "public",
+					"type": "string",
+					"pattern": "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$"
+				},
+				{
+					"name": "dateJoined",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "date",
+					"simpleDate": false
+				},
+				{
+					"name": "isActive",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "bool"
+				},
+				{
+					"name": "starsUsedLogEntries",
+					"kind": "relatedEntities",
+					"scope": "public",
+					"type": "StarsUsedLogEntries",
+					"reversePath": true,
+					"path": "user"
+				},
+				{
+					"name": "starsPurchaseLogEntries",
+					"kind": "relatedEntities",
+					"scope": "public",
+					"type": "StarsPurchaseLogEntries",
+					"reversePath": true,
+					"path": "user"
+				},
+				{
+					"name": "starsAvailable",
+					"kind": "calculated",
+					"scope": "public",
+					"type": "number",
+					"scriptKind": "javascript",
+					"onGet": [
+						{
+							"from": "model.Person.starsAvailable.onGet",
+							"userDefined": true
+						}
+					],
+					"not_null": true
+				}
+			]
+		},
+		{
+			"name": "OffcutsOwner",
+			"className": "OffcutsOwner",
+			"collectionName": "OffcutsOwners",
+			"scope": "public",
+			"extends": "Person",
+			"attributes": [
+				{
+					"name": "starsUsedLogEntries",
+					"kind": "relatedEntities",
+					"scope": "public",
+					"type": "StarsUsedLogEntries",
+					"path": "user"
+				},
+				{
+					"name": "offcutsOwned",
+					"kind": "relatedEntities",
+					"scope": "public",
+					"type": "Offcuts",
+					"reversePath": true,
+					"path": "ownedBy"
+				},
+				{
+					"name": "contactPerson",
+					"kind": "calculated",
+					"scope": "public",
+					"type": "string",
+					"scriptKind": "javascript"
+				},
+				{
+					"name": "contactPersonCell",
+					"kind": "calculated",
+					"scope": "public",
+					"type": "number",
+					"scriptKind": "javascript"
+				},
+				{
+					"name": "contactPersonTel",
+					"kind": "calculated",
+					"scope": "public",
+					"type": "number",
+					"scriptKind": "javascript"
+				},
+				{
+					"name": "contactPersoneEmail",
+					"kind": "calculated",
+					"scope": "public",
+					"type": "string",
+					"scriptKind": "javascript",
+					"pattern": "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$"
+				}
+			]
+		},
+		{
+			"name": "OffcutsViewer",
+			"className": "OffcutsViewer",
+			"collectionName": "OffcutsViewers",
+			"scope": "public",
+			"extends": "OffcutsOwner",
+			"attributes": [
+				{
+					"name": "starsUsedLogEntries",
+					"kind": "relatedEntities",
+					"scope": "public",
+					"type": "StarsUsedLogEntries",
+					"path": "user"
+				},
+				{
+					"name": "offcutViewedLogEntries",
+					"kind": "relatedEntities",
+					"scope": "public",
+					"type": "OffcutViewedLogsEntries",
+					"reversePath": true,
+					"path": "viewedBy"
+				}
+			]
+		},
+		{
+			"name": "Province",
+			"className": "Province",
+			"collectionName": "Provinces",
+			"scope": "public",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"autosequence": true,
+					"type": "long",
+					"primKey": true
+				},
+				{
+					"name": "Name",
+					"kind": "storage",
+					"scope": "public",
+					"type": "string",
+					"not_null": true
+				},
+				{
+					"name": "dateAdded",
+					"kind": "calculated",
+					"scope": "public",
+					"type": "date",
+					"simpleDate": false,
+					"scriptKind": "javascript",
+					"not_null": true
+				},
+				{
+					"name": "regions",
+					"kind": "relatedEntities",
+					"scope": "public",
+					"type": "Regions",
+					"reversePath": true,
+					"path": "province"
+				}
+			]
+		},
+		{
+			"name": "Region",
+			"className": "Region",
+			"collectionName": "Regions",
+			"scope": "public",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"autosequence": true,
+					"type": "long",
+					"primKey": true
+				},
+				{
+					"name": "regionName",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "string"
+				},
+				{
+					"name": "dateAdded",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "date",
+					"simpleDate": false
+				},
+				{
+					"name": "province",
+					"kind": "relatedEntity",
+					"scope": "public",
+					"type": "Province",
+					"path": "Province"
+				},
+				{
+					"name": "people",
+					"kind": "relatedEntities",
+					"scope": "public",
+					"type": "People",
+					"reversePath": true,
+					"path": "region"
+				},
+				{
+					"name": "searchGroup",
+					"kind": "relatedEntity",
+					"type": "SearchGroup",
+					"path": "SearchGroup",
+					"scope": "public"
+				}
+			]
+		},
+		{
+			"name": "StarEventType",
+			"className": "StarEventType",
+			"collectionName": "StarEventTypes",
+			"scope": "public",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"autosequence": true,
+					"type": "long",
+					"primKey": true
+				},
+				{
+					"name": "eventTypeName",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"not_null": true,
+					"type": "string"
+				},
+				{
+					"name": "dateAdded",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "date",
+					"simpleDate": false
+				},
+				{
+					"name": "starsUsedLogEntries",
+					"kind": "relatedEntities",
+					"scope": "public",
+					"type": "StarsUsedLogEntries",
+					"reversePath": true,
+					"path": "usedFor"
+				}
+			]
+		},
+		{
+			"name": "StarsPurchaseLogEntry",
+			"className": "StarsPurchaseLogEntry",
+			"collectionName": "StarsPurchaseLogEntries",
+			"scope": "public",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"autosequence": true,
+					"type": "long",
+					"primKey": true
+				},
+				{
+					"name": "user",
+					"kind": "relatedEntity",
+					"scope": "public",
+					"type": "Person",
+					"path": "Person"
+				},
+				{
+					"name": "datePurchased",
+					"kind": "storage",
+					"scope": "public",
+					"type": "date",
+					"simpleDate": false,
+					"not_null": true
+				},
+				{
+					"name": "quantity",
+					"kind": "storage",
+					"scope": "public",
+					"type": "number",
+					"not_null": true,
+					"minValue": "0"
+				},
+				{
+					"name": "amountPaid",
+					"kind": "storage",
+					"scope": "public",
+					"type": "number",
+					"not_null": true,
+					"minValue": "0",
+					"defaultFormat": [
+						{
+							"presentation": "text",
+							"format": null
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "StarsUsedLogEntry",
+			"className": "StarsUsedLogEntry",
+			"collectionName": "StarsUsedLogEntries",
+			"scope": "public",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"autosequence": true,
+					"type": "long",
+					"primKey": true
+				},
+				{
+					"name": "user",
+					"kind": "relatedEntity",
+					"scope": "public",
+					"type": "Person",
+					"path": "Person"
+				},
+				{
+					"name": "dateUsed",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "date",
+					"simpleDate": false
+				},
+				{
+					"name": "quantity",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "number",
+					"minValue": "0"
+				},
+				{
+					"name": "usedFor",
+					"kind": "relatedEntity",
+					"scope": "public",
+					"type": "StarEventType",
+					"path": "StarEventType"
+				}
+			]
+		},
+		{
+			"collectionName": "SearchGroups",
+			"className": "SearchGroup",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"type": "long",
+					"autosequence": "true",
+					"unique": "true",
+					"primKey": "true"
+				},
+				{
+					"name": "groupName",
+					"scope": "public",
+					"type": "string",
+					"kind": "storage",
+					"not_null": true,
+					"unique": true
+				},
+				{
+					"name": "dateAdded",
+					"scope": "public",
+					"type": "date",
+					"kind": "storage",
+					"not_null": true
+				},
+				{
+					"name": "regionsInGroup",
+					"scope": "public",
+					"reversePath": true,
+					"path": "searchGroup",
+					"type": "Regions",
+					"kind": "relatedEntities"
+				}
+			]
+		}
+	],
+	"type": []
+}
