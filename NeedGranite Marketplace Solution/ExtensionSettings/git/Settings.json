@@ -1,5 +1,6 @@
 ﻿{
-	"serverType": "none",
-	"gitURL": "https://github.com/",
-	"gitIsPrivateRepository": "false"
+	"serverType": "github",
+	"gitURL": "https://github.com/PierreFerreira",
+	"gitIsPrivateRepository": "false",
+	"gitEmail": "pdferreira777@gmail.com"
 }
