@@ -28,7 +28,7 @@
 			"Person": {
 				"panelColor": "#BFBFBF",
 				"panel": {
-					"isOpen": "true",
+					"isOpen": "false",
 					"pathVisible": true,
 					"position": {
 						"X": 63,
@@ -83,18 +83,18 @@
 			"Province": {
 				"panelColor": "#CCC1D9",
 				"panel": {
-					"isOpen": "false",
+					"isOpen": "true",
 					"pathVisible": true,
 					"position": {
-						"X": 31,
-						"Y": 338
+						"X": 149,
+						"Y": 143
 					}
 				}
 			},
 			"StarEventType": {
 				"panelColor": "#B7DDE8",
 				"panel": {
-					"isOpen": "true",
+					"isOpen": "false",
 					"pathVisible": true,
 					"position": {
 						"X": 515,
@@ -105,7 +105,7 @@
 			"StarsUsedLogEntry": {
 				"panelColor": "#E5B9B7",
 				"panel": {
-					"isOpen": "true",
+					"isOpen": "false",
 					"pathVisible": true,
 					"position": {
 						"X": 480,
@@ -116,7 +116,7 @@
 			"StarsPurchaseLogEntry": {
 				"panelColor": "#C4BD97",
 				"panel": {
-					"isOpen": "true",
+					"isOpen": "false",
 					"pathVisible": true,
 					"position": {
 						"X": 152,
@@ -139,11 +139,11 @@
 				"panelColor": "#76923C",
 				"panel": {
 					"isOpen": "false",
+					"pathVisible": true,
 					"position": {
 						"X": 552,
 						"Y": 580
-					},
-					"pathVisible": true
+					}
 				}
 			}
 		},
@@ -160,7 +160,8 @@
 					"computed": "Person/Person-events.js"
 				},
 				"Province": {
-					"computed": "Province/Province-events.js"
+					"computed": "Province/Province-events.js",
+					"events": "Province/Province-events.js"
 				}
 			}
 		}
@@ -179,6 +180,7 @@
 					"unique": true,
 					"autosequence": true,
 					"type": "long",
+					"indexKind": "btree",
 					"primKey": true
 				},
 				{
@@ -227,6 +229,7 @@
 					"unique": true,
 					"autosequence": true,
 					"type": "long",
+					"indexKind": "btree",
 					"primKey": true
 				},
 				{
@@ -268,6 +271,7 @@
 					"unique": true,
 					"autosequence": true,
 					"type": "long",
+					"indexKind": "btree",
 					"primKey": true
 				},
 				{
@@ -325,13 +329,13 @@
 					"name": "isAvailable",
 					"kind": "storage",
 					"scope": "public",
-					"type": "bool",
-					"not_null": true
+					"not_null": true,
+					"type": "bool"
 				}
 			]
 		},
 		{
-			"name": "OffcutViewedLog",
+			"name": "OffcutViewedLogEntry",
 			"className": "OffcutViewedLogEntry",
 			"collectionName": "OffcutViewedLogsEntries",
 			"scope": "public",
@@ -343,6 +347,7 @@
 					"unique": true,
 					"autosequence": true,
 					"type": "long",
+					"indexKind": "btree",
 					"primKey": true
 				},
 				{
@@ -382,6 +387,7 @@
 					"unique": true,
 					"autosequence": true,
 					"type": "long",
+					"indexKind": "btree",
 					"primKey": true
 				},
 				{
@@ -447,11 +453,17 @@
 				},
 				{
 					"name": "dateJoined",
-					"kind": "storage",
+					"kind": "calculated",
 					"scope": "public",
-					"not_null": true,
 					"type": "date",
-					"simpleDate": false
+					"simpleDate": false,
+					"scriptKind": "javascript",
+					"onSet": [
+						{
+							"from": "model.Person.dateJoined.onSet",
+							"userDefined": true
+						}
+					]
 				},
 				{
 					"name": "isActive",
@@ -487,8 +499,7 @@
 							"from": "model.Person.starsAvailable.onGet",
 							"userDefined": true
 						}
-					],
-					"not_null": true
+					]
 				}
 			]
 		},
@@ -582,23 +593,22 @@
 					"unique": true,
 					"autosequence": true,
 					"type": "long",
+					"indexKind": "btree",
 					"primKey": true
 				},
 				{
-					"name": "Name",
+					"name": "provinceName",
 					"kind": "storage",
 					"scope": "public",
-					"type": "string",
-					"not_null": true
+					"not_null": true,
+					"type": "string"
 				},
 				{
 					"name": "dateAdded",
-					"kind": "calculated",
+					"kind": "storage",
 					"scope": "public",
-					"type": "date",
-					"simpleDate": false,
-					"scriptKind": "javascript",
-					"not_null": true
+					"not_null": true,
+					"type": "date"
 				},
 				{
 					"name": "regions",
@@ -623,6 +633,7 @@
 					"unique": true,
 					"autosequence": true,
 					"type": "long",
+					"indexKind": "btree",
 					"primKey": true
 				},
 				{
@@ -658,9 +669,51 @@
 				{
 					"name": "searchGroup",
 					"kind": "relatedEntity",
+					"scope": "public",
 					"type": "SearchGroup",
-					"path": "SearchGroup",
-					"scope": "public"
+					"path": "SearchGroup"
+				}
+			]
+		},
+		{
+			"name": "SearchGroup",
+			"className": "SearchGroup",
+			"collectionName": "SearchGroups",
+			"scope": "public",
+			"attributes": [
+				{
+					"name": "ID",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"autosequence": true,
+					"type": "long",
+					"indexKind": "btree",
+					"primKey": true
+				},
+				{
+					"name": "groupName",
+					"kind": "storage",
+					"scope": "public",
+					"unique": true,
+					"not_null": true,
+					"type": "string"
+				},
+				{
+					"name": "dateAdded",
+					"kind": "storage",
+					"scope": "public",
+					"not_null": true,
+					"type": "date",
+					"simpleDate": false
+				},
+				{
+					"name": "regionsInGroup",
+					"kind": "relatedEntities",
+					"scope": "public",
+					"type": "Regions",
+					"reversePath": true,
+					"path": "searchGroup"
 				}
 			]
 		},
@@ -677,6 +730,7 @@
 					"unique": true,
 					"autosequence": true,
 					"type": "long",
+					"indexKind": "btree",
 					"primKey": true
 				},
 				{
@@ -718,6 +772,7 @@
 					"unique": true,
 					"autosequence": true,
 					"type": "long",
+					"indexKind": "btree",
 					"primKey": true
 				},
 				{
@@ -731,29 +786,28 @@
 					"name": "datePurchased",
 					"kind": "storage",
 					"scope": "public",
+					"not_null": true,
 					"type": "date",
-					"simpleDate": false,
-					"not_null": true
+					"simpleDate": false
 				},
 				{
 					"name": "quantity",
 					"kind": "storage",
 					"scope": "public",
-					"type": "number",
 					"not_null": true,
+					"type": "number",
 					"minValue": "0"
 				},
 				{
 					"name": "amountPaid",
 					"kind": "storage",
 					"scope": "public",
-					"type": "number",
 					"not_null": true,
+					"type": "number",
 					"minValue": "0",
 					"defaultFormat": [
 						{
-							"presentation": "text",
-							"format": null
+							"presentation": "text"
 						}
 					]
 				}
@@ -772,6 +826,7 @@
 					"unique": true,
 					"autosequence": true,
 					"type": "long",
+					"indexKind": "btree",
 					"primKey": true
 				},
 				{
@@ -803,43 +858,6 @@
 					"scope": "public",
 					"type": "StarEventType",
 					"path": "StarEventType"
-				}
-			]
-		},
-		{
-			"collectionName": "SearchGroups",
-			"className": "SearchGroup",
-			"attributes": [
-				{
-					"name": "ID",
-					"kind": "storage",
-					"type": "long",
-					"autosequence": "true",
-					"unique": "true",
-					"primKey": "true"
-				},
-				{
-					"name": "groupName",
-					"scope": "public",
-					"type": "string",
-					"kind": "storage",
-					"not_null": true,
-					"unique": true
-				},
-				{
-					"name": "dateAdded",
-					"scope": "public",
-					"type": "date",
-					"kind": "storage",
-					"not_null": true
-				},
-				{
-					"name": "regionsInGroup",
-					"scope": "public",
-					"reversePath": true,
-					"path": "searchGroup",
-					"type": "Regions",
-					"kind": "relatedEntities"
 				}
 			]
 		}
